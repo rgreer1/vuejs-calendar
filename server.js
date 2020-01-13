@@ -10,12 +10,13 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
   let template = fs.readFileSync(path.resolve('./index.html'), 'utf-8');
-  res.send(template);
+  res.send(template); //send template back as the reponse from a http  request
 
 });
 
 const server = http.createServer(app);
 
+//if in development mode use the "reload" module
 if (process.env.NODE_ENV === 'development') {
   const reload = require('reload');
   const reloadServer = reload(app);

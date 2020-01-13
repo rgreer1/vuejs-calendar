@@ -13,9 +13,9 @@ var baseConfig = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.js$/, //handle javascript files
         use: [{
-          loader: 'babel-loader',
+          loader: 'babel-loader', //babel loader allows transpiling of javascript using Babel and webpack
           options: {
             "presets": [ [ "env" ] ],
             "plugins": [ "transform-es2015-destructuring", "transform-runtime", "es6-promise" ]
@@ -24,11 +24,11 @@ var baseConfig = {
         exclude: /node_modules/
       },
       {
-        test: /\.scss$/,
-        loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader!sass-loader' })
+        test: /\.scss$/, //handle .sccs files
+        loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader!sass-loader' }) //create as a seperate css file, as required for server side rendering
       },
       {
-        test: /\.(png|jpg|gif|svg|ttf)$/,
+        test: /\.(png|jpg|gif|svg|ttf)$/, //handle image and font files
         loader: 'file-loader',
         options: {
           name: '[name].[ext]?[hash]',
@@ -36,7 +36,7 @@ var baseConfig = {
         }
       },
       {
-        test: /\.vue$/,
+        test: /\.vue$/,  //handle .vue files
         loader: 'vue-loader',
         options: {
           loaders: {
@@ -61,6 +61,7 @@ var baseConfig = {
   }
 };
 
+//exporting 2 seperate webpack configurations. One for the browser; one for the node server.
 let targets = [ 'web', 'node' ].map((target) => {
   let obj = webpackMerge(baseConfig, {
     target: target,

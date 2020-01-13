@@ -5,6 +5,8 @@ const compiler = webpack(webpackConfig);
 
 module.exports = {
   init(app) {
+
+    //recompiles software in response to saved changes to sourcecode
     app.use(webpackDevMiddleware(compiler, {
       hot: true,
       stats: {
@@ -15,6 +17,7 @@ module.exports = {
       filename: webpackConfig.output.filename,
     }));
 
+    //creates websocket that will update browser with changes to compiled code
     app.use(require("webpack-hot-middleware")(compiler, {
       log: console.log,
       path: '/__webpack_hmr',
